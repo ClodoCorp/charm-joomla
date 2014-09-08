@@ -5,6 +5,8 @@ description: |
   Joomla is an award-winning content management system (CMS), 
   which enables you to build Web sites and powerful online 
   applications.
+categories:
+  - applications
 provides:
   website:
     interface: http
