@@ -1,2 +1,2 @@
-#!/bin/bash
+#!/bin/bash -ex
 relation-set port=80 hostname=`unit-get public-address`

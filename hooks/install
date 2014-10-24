@@ -21,8 +21,8 @@ a2enmod php5
 /etc/init.d/apache2 restart
 
 juju-log "Downloading Joomla version 2.5"
-JOOMLA_TARBALL="http://joomlacode.org/gf/download/frsrelease/17715/77261/Joomla_2.5.8-Stable-Full_Package.tar.gz"
-JOOMLA_MD5SUM="cc282f03b4870b334657485ce183e279"
+JOOMLA_TARBALL="https://github.com/joomla/joomla-cms/releases/download/3.3.6/Joomla_3.3.6-Stable-Full_Package.tar.gz"
+JOOMLA_MD5SUM="a783a14939afaaf33040a1decffccbae"
 DOWNLOAD=`ch_get_file "$JOOMLA_TARBALL" "$JOOMLA_MD5SUM"`
 
 if [ ! -f "$DOWNLOAD" ] || [ -z "$DOWNLOAD" ]; then
@@ -34,7 +34,6 @@ juju-log "Extract ALL THE FILES"
 mkdir -p $install_path
 cd $install_path
 tar -xzf $DOWNLOAD
-rm -f index.html
 cd -
 
 # Set better file permissions

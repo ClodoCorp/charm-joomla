@@ -1,6 +1,5 @@
-#!/bin/bash
+#!/bin/bash -ex
 # Sets more verbose output to help debugging
-set -eux
 
 # Boiler plate code to print context of this script
 juju-log $JUJU_REMOTE_UNIT modified its settings
@@ -24,7 +23,8 @@ fi
 # Relation properties
 database=`relation-get database`
 user=`relation-get user`
-password=`relation-get password` host=`relation-get private-address`
+password=`relation-get password`
+host=`relation-get private-address`
 
 # Admin password from config.yaml
 admin_password=`config-get admin_password`
@@ -37,6 +37,9 @@ secret_key=`pwgen 32 1`
 if [ -z "$database" ] ; then
     exit 0
 fi
+
+: <<COMMENT
+
 
 ## If the user has given no password to the admin user exit with an error
 if [ -z "$admin_password" ] ; then
@@ -107,10 +110,13 @@ class JConfig {
 }
 ?>
 EOF
+COMMENT
 
 # least access permissions for the configuration file
 chown www-data:www-data $config_file_path
 chmod 0640 $config_file_path
+
+: <<COMMENT
 
 juju-log Creating initial database
 # Prefixing table names with jos_
@@ -132,6 +138,7 @@ INSERT INTO \`jos_user_usergroup_map\` VALUES (42, 8);
 EOF
 mysql -h $host -u $user --password=$password $database < /tmp/joomla-admin.sql
 rm -f /tmp/joomla-admin.sql
+COMMENT
 
 juju-log "Opening port 80"
 open-port 80/tcp
