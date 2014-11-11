@@ -1,9 +1,23 @@
-#!/bin/bash
+#!/bin/sh -ex
 
 # Common variables used across other scripts/hooks	
 hostname=`unit-get public-address`
 private_name=`unit-get private-address`
 
-install_path="/var/www/"
+install_path="/srv/www/htdocs"
 config_file_path="$install_path/configuration.php"
 initdb_sql="$install_path/installation/sql/mysql/joomla.sql"
+
+# This file should contain common function definitions
+function set_permissions() {
+	# Setting permissions as recommended by: 
+	# http://docs.joomla.org/Security_Checklist/Hosting_and_Server_Setup
+	if [ -d $install_path ]; then
+		chmod 750 $install_path
+		find $install_path -type f -exec chmod 644 {} \;
+		find $install_path -type d -exec chmod 755 {} \;
+	else
+		juju-log "Joomla is not installed at $install_path"
+		exit 1
+	fi
+}

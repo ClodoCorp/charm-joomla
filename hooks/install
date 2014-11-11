@@ -1,43 +1,25 @@
-#!/bin/bash
-# Installs Joomla by downloading its tarball and extracing it to $install_path
-# Downloaded file MD5SUM is checked against JOOMLA_MD5SUM
-
-set -eux
+#!/bin/sh -ex
 
 source inc/common
-source inc/func
 
-juju-log "Installing apache, php and mysql-client using apt-get"
+juju-log "Installing software"
 
-add-apt-repository -y ppa:charmers/charm-helpers
+apt-get update
+apt-get -y install apache2 php5-gd libapache2-mod-php5 mysql-client-core-5.5 php5-mysql pwgen
 
-apt-get update && apt-get -y upgrade
-apt-get -y install apache2 php5-gd libapache2-mod-php5 php5-cgi mysql-client-core-5.5 php5-mysql python-mysqldb charm-helper-sh pwgen
+a2enmod php5 headers
+service apache2 restart
 
-juju-log "Sourcing in charm-helper net.sh"
-source /usr/share/charm-helper/sh/net.sh
-
-a2enmod php5
-/etc/init.d/apache2 restart
-
-juju-log "Downloading Joomla version 2.5"
+juju-log "Download"
 JOOMLA_TARBALL="https://github.com/joomla/joomla-cms/releases/download/3.3.6/Joomla_3.3.6-Stable-Full_Package.tar.gz"
 JOOMLA_MD5SUM="a783a14939afaaf33040a1decffccbae"
-DOWNLOAD=`ch_get_file "$JOOMLA_TARBALL" "$JOOMLA_MD5SUM"`
+curl -s $JOOMLA_TARBALL > /tmp/joomla.tar.gz
 
-if [ ! -f "$DOWNLOAD" ] || [ -z "$DOWNLOAD" ]; then
-	juju-log "Failed to retrieve $JOOMLA_TARBALL"
-	exit 1
-fi
-
-juju-log "Extract ALL THE FILES"
+juju-log "Extract"
 mkdir -p $install_path
-cd $install_path
-tar -xzf $DOWNLOAD
-cd -
-
+tar -C $install_path /tmp/joomla.tar.gz
+rm -f /tmp/joomla.tar.gz
+mv $install_path/htaccess.txt $install_path/.htaccess
+cp $install_path/installation/configuration.php-dist $install_path/configuration.php
 # Set better file permissions
 set_permissions
-
-juju-log "Clean up"
-rm -rf $DOWNLOAD
