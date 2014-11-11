@@ -13,11 +13,11 @@ service apache2 restart
 juju-log "Download"
 JOOMLA_TARBALL="https://github.com/joomla/joomla-cms/releases/download/3.3.6/Joomla_3.3.6-Stable-Full_Package.tar.gz"
 JOOMLA_MD5SUM="a783a14939afaaf33040a1decffccbae"
-curl -s $JOOMLA_TARBALL > /tmp/joomla.tar.gz
+curl -vv -L $JOOMLA_TARBALL > /tmp/joomla.tar.gz
 
 juju-log "Extract"
 mkdir -p $install_path
-tar -C $install_path /tmp/joomla.tar.gz
+tar -C $install_path -zxf /tmp/joomla.tar.gz
 rm -f /tmp/joomla.tar.gz
 mv $install_path/htaccess.txt $install_path/.htaccess
 cp $install_path/installation/configuration.php-dist $install_path/configuration.php

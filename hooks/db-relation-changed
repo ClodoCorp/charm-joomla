@@ -8,6 +8,7 @@ juju-log Relation members:
 relation-list
 
 . inc/common
+: <<EOF
 
 # If there is a config file already, Joomla is already installed & config'ed
 if [ -f "$config_file_path" ]; then
@@ -16,6 +17,7 @@ if [ -f "$config_file_path" ]; then
 	juju-log "Joomla is already setup, just silently going away"
 	exit 0
 fi
+EOF
 
 # Relation properties
 database=`relation-get database`
