@@ -24,7 +24,7 @@ mv $install_path/htaccess.txt $install_path/.htaccess
 
 (
 cd $install_path
-patch -p1 files/default_database.patch
+patch -p1 < files/default_database.patch
 )
 
 # Secret key for configuring Joomla
