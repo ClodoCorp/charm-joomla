@@ -7,7 +7,7 @@ relation-get
 juju-log Relation members:
 relation-list
 
-source inc/common
+. inc/common
 
 # If there is a config file already, Joomla is already installed & config'ed
 if [ -f "$config_file_path" ]; then

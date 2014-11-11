@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-source inc/common
+. inc/common
 
 juju-log "Installing software"
 
