@@ -1,6 +1,6 @@
 #!/bin/sh -ex
 
-# Common variables used across other scripts/hooks	
+# Common variables used across other scripts/hooks
 hostname=`unit-get public-address`
 private_name=`unit-get private-address`
 
@@ -9,7 +9,7 @@ config_file_path="$install_path/configuration.php"
 initdb_sql="$install_path/installation/sql/mysql/joomla.sql"
 
 # This file should contain common function definitions
-function set_permissions() {
+set_permissions() {
 	# Setting permissions as recommended by: 
 	# http://docs.joomla.org/Security_Checklist/Hosting_and_Server_Setup
 	if [ -d $install_path ]; then
