@@ -32,7 +32,7 @@ fi
 juju-log Config
 sed -i "s|PLACEHOLDER_DB_HOST|$host|g" $install_path/installation/model/forms/database.xml
 sed -i "s|PLACEHOLDER_DB_USER|$user|g" $install_path/installation/model/forms/database.xml
-sed -i "s|PLACEHOLDER_DB_PASS|$password" $install_path/installation/model/forms/database.xml
+sed -i "s|PLACEHOLDER_DB_PASS|$password|g" $install_path/installation/model/forms/database.xml
 sed -i "s|PLACEHOLDER_DB_NAME|$database|g" $install_path/installation/model/forms/database.xml
 sed -i "s|PLACEHOLDER_DB_PREFIX|jos_|g" $install_path/installation/model/forms/database.xml
 
