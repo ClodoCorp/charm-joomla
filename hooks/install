@@ -20,11 +20,16 @@ mkdir -p $install_path
 tar -C $install_path -zxf /tmp/joomla.tar.gz
 rm -f /tmp/joomla.tar.gz
 mv $install_path/htaccess.txt $install_path/.htaccess
-cp $install_path/installation/configuration.php-dist $install_path/configuration.php
+#cp $install_path/installation/configuration.php-dist $install_path/configuration.php
+
+(
+cd $install_path
+patch -p1 files/default_database.patch
+)
 
 # Secret key for configuring Joomla
 secret_key=`pwgen 32 1`
-sed -i "s|public \$secret = '.*';|public \$secret = '"$secret_key"';|g" $install_path/configuration.php
+sed -i "s|public \$secret = '.*';|public \$secret = '"$secret_key"';|g" $install_path/configuration.php-dist
 
 # Set better file permissions
 set_permissions
