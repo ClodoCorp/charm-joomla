@@ -37,8 +37,8 @@ sed -i "s|PLACEHOLDER_DB_NAME|$database|g" $install_path/installation/model/form
 sed -i "s|PLACEHOLDER_DB_PREFIX|jos_|g" $install_path/installation/model/forms/database.xml
 
 # least access permissions for the configuration file
-chown www-data:www-data $config_file_path
-chmod 0640 $config_file_path
+#chown www-data:www-data $config_file_path
+#chmod 0640 $config_file_path
 
 juju-log "Opening port 80"
 open-port 80/tcp
