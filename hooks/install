@@ -29,7 +29,7 @@ patch -p1 files/default_database.patch
 
 # Secret key for configuring Joomla
 secret_key=`pwgen 32 1`
-sed -i "s|public \$secret = '.*';|public \$secret = '"$secret_key"';|g" $install_path/configuration.php-dist
+sed -i "s|public \$secret = '.*';|public \$secret = '"$secret_key"';|g" $install_path/installation/configuration.php-dist
 
 # Set better file permissions
 set_permissions
