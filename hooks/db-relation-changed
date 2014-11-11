@@ -25,9 +25,6 @@ user=`relation-get user`
 password=`relation-get password`
 host=`relation-get private-address`
 
-# Secret key for configuring Joomla
-secret_key=`pwgen 32 1`
-
 # Sanity checks
 ## If there is no database name defined, die
 if [ -z "$database" ] ; then
@@ -40,7 +37,6 @@ sed -i "s|public \$user = '.*';|public \$user = '"$user"';|g" $config_file_path
 sed -i "s|public \$password = '.*';|public \$password = '"$password"';|g" $config_file_path
 sed -i "s|public \$db = '.*';|public \$db = '"$database"';|g" $config_file_path
 sed -i "s|public \$dbprefix = '.*';|public \$dbprefix = 'jos_';|g" $config_file_path
-sed -i "s|public \$secret = '.*';|public \$secret = '"$$secret_key"';|g" $config_file_path
 
 # least access permissions for the configuration file
 chown www-data:www-data $config_file_path
