@@ -1,2 +1,2 @@
 #!/bin/sh -ex
-relation-set port=8080 hostname=`unit-get public-address`
+relation-set port=80 hostname=`unit-get public-address`
