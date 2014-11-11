@@ -23,8 +23,7 @@ mv $install_path/htaccess.txt $install_path/.htaccess
 #cp $install_path/installation/configuration.php-dist $install_path/configuration.php
 
 (
-cd $install_path
-patch -p1 < files/default_database.patch
+patch -d $install_path -p1 < files/default_database.patch
 )
 
 # Secret key for configuring Joomla
