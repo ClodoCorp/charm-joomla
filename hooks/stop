@@ -1,5 +1,5 @@
 #!/bin/sh -ex
 
 engine=`cat .web-engine`
-service $engine status && service $engine stop
+service $engine stop || true
 
