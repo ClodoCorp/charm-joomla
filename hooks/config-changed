@@ -23,11 +23,11 @@ if [ "x$engine" = "xapache" -o "x${engine}" = "xapache2" ]; then
 
 	juju-log "Installing Apache loadbalance config..."
 	install -o root -g root -m 0644 files/charm/apache/etc_apache2_sites-enabled_loadbalancer /etc/apache2/sites-available/loadbalancer
-	sed -i -e "s/^  ServerName .*/  ServerName ${unit_address}/" /etc/apache2/sites-available/loadbalancer
+	sed -i -e "s/^  ServerName .*/  ServerName ${unit_address}/" /etc/apache2/sites-available/loadbalancer.conf
 	a2ensite loadbalancer
 
 	juju-log "Installing Apache joomla config..."
-	install -o root -g root -m 0644 files/charm/apache/etc_apache2_sites-enabled_joomla /etc/apache2/sites-available/joomla
+	install -o root -g root -m 0644 files/charm/apache/etc_apache2_sites-enabled_joomla /etc/apache2/sites-available/joomla.conf
 	a2ensite joomla
 
 	echo "apache2" > .web-engine
