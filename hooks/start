@@ -1,3 +1,5 @@
-#!/bin/bash -ex
-juju-log "Apache will be started"
-service apache2 status || service apache2 start
+#!/bin/sh -ex
+
+engine=`cat .web-engine`
+service $engine status || service $engine start
+

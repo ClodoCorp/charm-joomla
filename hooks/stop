@@ -1,3 +1,5 @@
-#!/bin/bash -ex
-juju-log "Apache will be stopped"
-service apache2 status && service apache2 stop
+#!/bin/sh -ex
+
+engine=`cat .web-engine`
+service $engine status && service $engine stop
+

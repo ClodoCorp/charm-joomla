@@ -5,9 +5,11 @@
 juju-log "Installing software"
 
 apt-get update
-apt-get -y install apache2 php5-gd libapache2-mod-php5 mysql-client-core-5.5 php5-mysql pwgen
+apt-get -y install --no-install-suggests --no-install-recommends  apache2 php5-gd libapache2-mod-php5 mysql-client-core-5.5 php5-mysql pwgen
 
 a2enmod php5 headers
+a2dissite 000-default
+
 service apache2 restart
 
 juju-log "Download"
@@ -20,10 +22,9 @@ mkdir -p $install_path
 tar -C $install_path -zxf /tmp/joomla.tar.gz
 rm -f /tmp/joomla.tar.gz
 mv $install_path/htaccess.txt $install_path/.htaccess
-#cp $install_path/installation/configuration.php-dist $install_path/configuration.php
 
 (
-patch -d $install_path -p1 < files/default_database.patch
+patch -d $install_path -p1 < files/joomla/default_database.patch
 )
 
 # Secret key for configuring Joomla
