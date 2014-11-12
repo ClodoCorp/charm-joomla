@@ -36,5 +36,5 @@ fi
 hooks/loadbalancer-rebuild
 
 juju-log "Restarting Services ..."
-source hooks/restart
+. hooks/restart
 
