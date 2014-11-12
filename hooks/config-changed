@@ -6,7 +6,7 @@ tuning_level=`config-get tuning`
 engine=`config-get engine`
 unit_address=`unit-get private-address`
 
-if [ "$engine" == "apache" ] || [ "$engine" == "apache2" ]; then
+if [ "x$engine" = "xapache" -o "x${engine}" = "xapache2" ]; then
 	if [ -f .web-engine ]; then
 		web_engine=`cat .web-engine`
 		service $web_engine stop
